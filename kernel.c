@@ -86,7 +86,8 @@ void readString(char *string) {
 }
 void clear(char *buffer, int length) {
 	//Mengisi seluruh elemen buffer dengan 0x00
-	for(int i = 0; i < length; i++){
+	int i;
+	for(i = 0; i < length; i++){
 		buffer[i] = 0x00;
 	}
 }
