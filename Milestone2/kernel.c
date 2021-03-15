@@ -4,6 +4,10 @@ void readString(char *string);
 void clear(char *buffer, int length); //Fungsi untuk mengisi buffer dengan 0
 void printLogo();
 void printInMemory(char *string, int color, int x, int y);
+int div(int x, int y);
+int mod(int x, int y);
+void readSector(char *buffer, int sector);
+void writeSector(char *buffer, int sector);
 
 int main () {
 
@@ -26,34 +30,18 @@ int main () {
 	while (1);
 }
 
-void handleInterrupt21 (int AX, int BX, int CX, int DX) { 
-	char AL, AH; 
-	AL = (char) (AX); 
-	AH = (char) (AX >> 8); 
-	switch (AL) { 
-		case 0x00: 
-			printString(BX); 
-			break; 
-		case 0x01: 
-			readString(BX); 
-			break; 
-		case 0x02: 
-			readSector(BX, CX); 
-			break; 
-		case 0x03: 
-			writeSector(BX, CX); 
-			break; 
-		case 0x04: 
-			readFile(BX, CX, DX, AH); 
-			break; 
-			case 0x05: 
-			writeFile(BX, CX, DX, AH); 
-			break;
-		default: 
-			printString("Invalid interrupt"); 
-	} 
+void handleInterrupt21 (int AX, int BX, int CX, int DX){
+  switch (AX) {
+    case 0x0:
+      printString(BX);
+      break;
+    case 0x1:
+      readString(BX);
+      break;
+    default:
+      printString("Invalid interrupt");
+  }
 }
-
 
 //Prosedur menampilkan string
 void printString(char *string){
@@ -153,37 +141,28 @@ void printLogo()
 	printInMemory("*                                    #                                        *", 0xA, 0, 10);
 	printInMemory("*                                   ###                                       *", 0xA, 0, 11);
 	printInMemory("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *", 0xA, 0, 12);
-
 }
 
-// mod function
-int mod(int a, int b) {
-	while (a >= b) {
-		a = a - b;
+int div(int x, int y){
+	int z = 0;
+	while(z * y <= x){
+		z += 1;
 	}
-	return a;
+	z -= 1;
+	return z;
 }
 
-// div function
-int div(int a, int b) {
-	int count = 0;
-	while (a >= b) {
-		a = a - b;
-		count = count + 1;
+int mod(int x, int y){
+	while(x >= y){
+		x -= y;
 	}
-	return count - 1;
+	return x;
 }
 
-
-void readSector(char *buffer, int sector) {
-	interrupt(0x13, 0x201, buffer, 
-	div(sector, 36) * 0x100 + mod(sector, 18) + 1, 
-	mod(div(sector, 18), 2) * 0x100);
+void readSector(char * buffer, int sector){
+	interrupt(0x13, 0x201, buffer, div(sector, 36) * 0x100 + mod(sector, 18) + 1, mod(div(sector, 18), 2) * 0x100);
 }
 
-
-void writeSector(char *buffer, int sector) {
-	interrupt(0x13, 0x301, buffer, 
-	div(sector, 36) * 0x100 + mod(sector, 18) + 1, 
-	mod(div(sector, 18), 2) * 0x100);
+void writeSector(char *buffer, int sector){
+	interrupt(0x13, 0x301, buffer, div(sector, 36) * 0x100 + mod(sector, 18) + 1, mod(div(sector, 18), 2) * 0x100);
 }
