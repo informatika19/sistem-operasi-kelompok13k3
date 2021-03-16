@@ -20,12 +20,11 @@ void main () {
 	readFile(fileContent, name, &isSuccess, currDir);
 
 	if (isSuccess == 1) {
-		printString("File content: \r\n\0");
 		printString(fileContent);
 		printString("\r\n\0");
 
 	} else {
-		printString("File not found\r\n\0");
+		printString("File tidak ditemukan\r\n\0");
 	}
 	
     interrupt(0x21, 0x06, "shell", 0x2000, &isSuccess);
