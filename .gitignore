@@ -2,3 +2,4 @@ bochsout.txt
 bootloader
 kernel
 *.o
+*.img
