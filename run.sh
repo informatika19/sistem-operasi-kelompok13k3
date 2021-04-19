@@ -10,8 +10,9 @@ bcc -ansi -c -o kernel.o kernel.c
 bcc -ansi -c -o math.o modul/math.c
 bcc -ansi -c -o text.o modul/text.c
 bcc -ansi -c -o fileIO.o modul/fileIO.c
+bcc -ansi -c -o folderIO.o modul/folderIO.c
 nasm -f as86 kernel.asm -o kernel_asm.o
-ld86 -o kernel -d kernel.o kernel_asm.o math.o text.o fileIO.o
+ld86 -o kernel -d kernel.o kernel_asm.o math.o text.o fileIO.o folderIO.o
 dd if=kernel of=system.img bs=512 conv=notrunc seek=1
 
 # compile loadfile
@@ -29,16 +30,21 @@ ld86 -o cat -d cat.o lib_asm.o text.o fileIO.o math.o
 ./loadFile cat
 
 # compile mkdir
-bcc -ansi -c command/mkdir.c -o mkdir.o
+bcc -ansi -c mkdir.c -o mkdir.o
 ld86 -o mkdir -d mkdir.o lib_asm.o
 ./loadFile mkdir
+
+# compile rm
+bcc -ansi -c rm.c -o rm.o
+ld86 -o rm -d rm.o lib_asm.o text.o fileIO.o folderIO.o math.o
+./loadFile rm
 
 ./loadFile 13519111.txt 
 ./loadFile 13519122.txt
 ./loadFile 13519123.txt
 
 # cleaning compiled files
-rm bochsout.txt bootloader cat cat.o fileIO.o kernel kernel.o kernel_asm.o lib_asm.o loadFile math.o mkdir mkdir.o shell shell.o text.o
+rm bochsout.txt bootloader cat kernel loadFile mkdir shell rm *.o
 
 # run bochs
 echo c | bochs -f if2230.config
