@@ -68,6 +68,26 @@ int main() {
 			interrupt(0x21, 0x06, "cat", 0x2000, &isSuccess);
 		} else if (compareStrN(input, "ls", 2)) {
 			ls(curdir);
+		} else if (compareStrN(input, "rm", 2)) {
+			i = 3;
+			while (i < 17) {
+				if (input[i] == '\0') break;
+				else arg[i - 3] = input[i];
+				i++;
+			}
+
+			while (i < 17) {
+				arg[i-3] = '\0';
+				i++;
+			}
+
+			dirAndName[0] = curdir;
+			for (i = 0; i < 14; i++) {
+				dirAndName[i + 1] = arg[i];
+			}
+
+			interrupt(0x21, 0x03, dirAndName, 512, 0);
+			interrupt(0x21, 0x06, "rm", 0x2000, &isSuccess);
 		} else if(compareStrN(input,"mkdir",5)) {
 			i = 6;
 			while (i < 20 ) {
