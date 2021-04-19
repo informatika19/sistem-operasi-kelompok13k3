@@ -1,6 +1,6 @@
-#include "modul/text.h"
-#include "modul/fileIO.h"
-#include "modul/math.h"
+#include "../modul/text.h"
+#include "../modul/fileIO.h"
+#include "../modul/math.h"
 
 void main () {
     char name[14], tempBuff[512], fileContent[512 * 16], currDir;

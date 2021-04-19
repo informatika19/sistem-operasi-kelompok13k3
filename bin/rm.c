@@ -1,6 +1,6 @@
-#include "modul/text.h"
-#include "modul/fileIO.h"
-#include "modul/folderIO.h"
+#include "../modul/text.h"
+#include "../modul/fileIO.h"
+#include "../modul/folderIO.h"
 
 void main() {
     char name[14], folderAndFiles[512*2], tempBuff[512], currDir;
