@@ -163,6 +163,31 @@ void writeFile(char *buffer, char *path, int *sectors, char parentIndex) {
 	}
 }
 
+void delFile(char entry) {
+	char mapBuffer[512], folderAndFiles[1024], sectBuffer[512];
+	int i;
+	
+	interrupt(0x21, 0x02, folderAndFiles, 257, 0);
+	interrupt(0x21, 0x02, folderAndFiles + 512, 258, 0);
+	
+	folderAndFiles[entry * 16] = 0x0;
+	folderAndFiles[entry * 16 + 1] = '\0';
+		
+	interrupt(0x21, 0x02, &mapBuffer, 256, 0);
+	interrupt(0x21, 0x02, &sectBuffer, 259, 0);
+	i = 0;
+	while (sectBuffer[entry * 16 + i] != '\0' && i < 16) {
+		mapBuffer[sectBuffer[entry * 16 + i]] = 0x0;
+		sectBuffer[entry * 16 + i] = 0x0;
+		i++;
+	}
+
+	interrupt(0x21, 0x03, &folderAndFiles, 257, 0);
+	interrupt(0x21, 0x03, folderAndFiles + 512, 258, 0);
+	interrupt(0x21, 0x03, &sectBuffer, 259, 0);
+	interrupt(0x21, 0x03, &mapBuffer, 256, 0);
+}
+
 void readSector(char *buffer, int sector) {
 	interrupt(0x13, 0x201, buffer, div(sector, 36) * 0x100 + mod(sector, 18) + 1, mod(div(sector, 18), 2) * 0x100);
 }
