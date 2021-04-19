@@ -39,12 +39,16 @@ bcc -ansi -c bin/rm.c -o rm.o
 ld86 -o rm -d rm.o lib_asm.o text.o fileIO.o folderIO.o math.o
 ./loadFile rm
 
+cp files/13519111.txt 13519111.txt
+cp files/13519122.txt 13519122.txt
+cp files/13519123.txt 13519123.txt
 ./loadFile 13519111.txt 
 ./loadFile 13519122.txt
 ./loadFile 13519123.txt
 
+
 # cleaning compiled files
-rm bochsout.txt bootloader cat kernel loadFile mkdir shell rm *.o
+rm bochsout.txt bootloader cat kernel loadFile mkdir shell rm *.o *.txt
 
 # run bochs
 echo c | bochs -f if2230.config
