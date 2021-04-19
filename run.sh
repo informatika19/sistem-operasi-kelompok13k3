@@ -25,17 +25,17 @@ ld86 -o shell -d shell.o lib_asm.o
 ./loadFile shell
 
 # compile cat
-bcc -ansi -c cat.c -o cat.o
+bcc -ansi -c bin/cat.c -o cat.o
 ld86 -o cat -d cat.o lib_asm.o text.o fileIO.o math.o
 ./loadFile cat
 
 # compile mkdir
-bcc -ansi -c mkdir.c -o mkdir.o
+bcc -ansi -c bin/mkdir.c -o mkdir.o
 ld86 -o mkdir -d mkdir.o lib_asm.o
 ./loadFile mkdir
 
 # compile rm
-bcc -ansi -c rm.c -o rm.o
+bcc -ansi -c bin/rm.c -o rm.o
 ld86 -o rm -d rm.o lib_asm.o text.o fileIO.o folderIO.o math.o
 ./loadFile rm
 
