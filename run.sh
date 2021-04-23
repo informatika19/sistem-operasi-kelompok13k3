@@ -1,6 +1,3 @@
-dd if=/dev/zero of=system.img bs=512 count=2880
-dd if=/dev/zero of=sectors.img bs=512 count=1
-dd if=/dev/zero of=files.img bs=512 count=2
 nasm bootloader.asm -o bootloader
 dd if=bootloader of=system.img bs=512 count=1 conv=notrunc
 dd if=map.img of=system.img bs=512 count=1 seek=256 conv=notrunc
@@ -39,13 +36,13 @@ bcc -ansi -c bin/rm.c -o rm.o
 ld86 -o rm -d rm.o lib_asm.o text.o fileIO.o folderIO.o math.o
 ./loadFile rm
 
+#Loading file
 cp files/13519111.txt 13519111.txt
 cp files/13519122.txt 13519122.txt
 cp files/13519123.txt 13519123.txt
 ./loadFile 13519111.txt 
 ./loadFile 13519122.txt
 ./loadFile 13519123.txt
-
 
 # cleaning compiled files
 rm bochsout.txt bootloader cat kernel loadFile mkdir shell rm *.o *.txt
