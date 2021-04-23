@@ -8,8 +8,9 @@ bcc -ansi -c -o math.o modul/math.c
 bcc -ansi -c -o text.o modul/text.c
 bcc -ansi -c -o fileIO.o modul/fileIO.c
 bcc -ansi -c -o folderIO.o modul/folderIO.c
+bcc -ansi -c -o logo.o modul/logo.c
 nasm -f as86 kernel.asm -o kernel_asm.o
-ld86 -o kernel -d kernel.o kernel_asm.o math.o text.o fileIO.o folderIO.o
+ld86 -o kernel -d kernel.o kernel_asm.o math.o text.o fileIO.o folderIO.o logo.o
 dd if=kernel of=system.img bs=512 conv=notrunc seek=1
 
 # compile loadfile
