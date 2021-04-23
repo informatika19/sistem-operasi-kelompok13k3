@@ -48,4 +48,4 @@ cat file_name
 - [Mgs. Tabrani (13519122)](https://github.com/mgstabrani)
 - [Muhammad Rifky Muthahhari (13519123)](https://github.com/rifkymuth)
 ## Referensi
-- Write File (keos)
+- Write File (k1-keos)
