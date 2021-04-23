@@ -47,3 +47,5 @@ cat file_name
 - [Febriawan Ghally Ar Rahman (13519111)](https://github.com/ghallyy)
 - [Mgs. Tabrani (13519122)](https://github.com/mgstabrani)
 - [Muhammad Rifky Muthahhari (13519123)](https://github.com/rifkymuth)
+## Referensi
+- Write File (keos)
